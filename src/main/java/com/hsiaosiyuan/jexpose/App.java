@@ -1,6 +1,5 @@
 package com.hsiaosiyuan.jexpose;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.cli.*;
 
@@ -28,19 +27,19 @@ public class App {
     try {
       line = parser.parse(options, args);
       if (!line.hasOption("entry")) {
-        throw new InvalidArgumentException(new String[]{"missing entry"});
+        throw new Exception("missing entry");
       }
       if (!line.hasOption("entry-jar")) {
-        throw new InvalidArgumentException(new String[]{"missing entry-jar"});
+        throw new Exception("missing entry-jar");
       }
       if (!line.hasOption("lib")) {
-        throw new InvalidArgumentException(new String[]{"missing lib"});
+        throw new Exception("missing lib");
       }
       providerSuffix = line.getOptionValue("provider-suffix");
 
       String includeStr = line.getOptionValue("include");
       if (providerSuffix == null && includeStr == null) {
-        throw new InvalidArgumentException(new String[]{"missing either provider-suffix or filter"});
+        throw new Exception("missing either provider-suffix or filter");
       }
       if (includeStr != null) {
         include = Pattern.compile(includeStr);
