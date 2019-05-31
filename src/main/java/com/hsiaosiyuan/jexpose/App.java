@@ -69,6 +69,7 @@ public class App {
       exclude).process();
 
     long te = System.currentTimeMillis();
+    Thread.sleep(500);
     double elapsed = (te - tb) / 1000.0;
     System.out.println("Output at: " + outDir);
     System.out.println("elapsed: " + elapsed + "s");
