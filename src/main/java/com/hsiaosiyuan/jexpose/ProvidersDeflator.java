@@ -130,9 +130,9 @@ public class ProvidersDeflator {
 
   private boolean isWhiteFile(File file) {
     String filename = filenameWithoutExt(file);
+    filename = filename.replace('/', '.').replace('\\', '.');
     if (this.providerSuffix != null) {
-      String basename = FilenameUtils.getBaseName(filename);
-      return basename.endsWith(this.providerSuffix) && !isBlackFile(file);
+      return filename.endsWith(this.providerSuffix) && !isBlackFile(file);
     }
     return this.include.matcher(filename).matches() && !isBlackFile(file);
   }
