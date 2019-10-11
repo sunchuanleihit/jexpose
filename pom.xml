@@ -4,7 +4,7 @@
 
   <groupId>com.hsiaosiyuan.jexpose</groupId>
   <artifactId>jexpose</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.5-SNAPSHOT</version>
 <!--  <packaging>pom</packaging>-->
   <packaging>jar</packaging>
 
@@ -25,6 +25,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <mainClass>com.hsiaosiyuan.jexpose.App</mainClass>
 <!--          <compilerArguments>-->
 <!--            <bootclasspath>${java.home}/jre/lib/rt.jar:${java.home}/jre/lib/javaws.jar</bootclasspath>-->
 <!--          </compilerArguments>-->
