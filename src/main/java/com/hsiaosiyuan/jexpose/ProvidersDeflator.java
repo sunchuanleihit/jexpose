@@ -26,7 +26,7 @@ public class ProvidersDeflator {
   private String entryName;
   private File entryJar;
   private File libDir;
-  private String providerSuffix;
+  private String[] providerSuffixArr;
   private Pattern include;
   private Pattern exclude;
 
@@ -45,7 +45,9 @@ public class ProvidersDeflator {
     Pattern include,
     Pattern exclude
   ) {
-    this.providerSuffix = providerSuffix;
+    if (providerSuffix != null) {
+      this.providerSuffixArr = providerSuffix.split(",");
+    }
     entryName = entry;
 
     File file = new File(entryJarPath);
@@ -131,10 +133,20 @@ public class ProvidersDeflator {
   private boolean isWhiteFile(File file) {
     String filename = filenameWithoutExt(file);
     filename = filename.replace('/', '.').replace('\\', '.');
-    if (this.providerSuffix != null) {
-      return filename.endsWith(this.providerSuffix) && !isBlackFile(file);
+    if (isBlackFile(file)) {
+      return false;
     }
-    return this.include.matcher(filename).matches() && !isBlackFile(file);
+    if (this.providerSuffixArr != null) {
+      for (String providerSuffix : this.providerSuffixArr) {
+        if (filename.endsWith(providerSuffix)) {
+          return true;
+        }
+      }
+    }
+    if (this.include != null) {
+      return this.include.matcher(filename).matches();
+    }
+    return false;
   }
 
   private ArrayList<String> walkAndScanProviders(String root, File dir) {
