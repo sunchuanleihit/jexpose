@@ -94,23 +94,16 @@ public class ProvidersDeflator {
     return jars;
   }
 
-  private void extractAndMergeJars() throws ZipException, InterruptedException {
+  private void extractAndMergeJars() throws ZipException {
     ArrayList<File> jars = scanJarDir(libDir);
     jars.add(entryJar);
-    LinkedList<ZipFile> zipFiles = new LinkedList<>();
     for (File j : jars) {
       ZipFile zipFile = new ZipFile(j.getAbsolutePath());
-      zipFiles.add(zipFile);
-      zipFile.setRunInThread(true);
       try {
         zipFile.extractAll(extractedDir.getAbsolutePath());
       } catch (ZipException e) {
         System.out.println(Colorize.error("ZipException:" + e.getMessage()));
       }
-    }
-    while (zipFiles.size() > 0) {
-      zipFiles.removeIf(file -> file.getProgressMonitor().getState() != ProgressMonitor.STATE_BUSY);
-      Thread.sleep(300);
     }
   }
 
